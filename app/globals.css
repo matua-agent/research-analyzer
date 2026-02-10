@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #141414;
+  --card-border: #2a2a2a;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --muted: #737373;
+  --success: #22c55e;
+  --warning: #f59e0b;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 3px; }
+
+/* Prose styles for markdown */
+.prose h1, .prose h2, .prose h3 { color: var(--foreground); font-weight: 600; margin-top: 1.5em; margin-bottom: 0.5em; }
+.prose h1 { font-size: 1.5rem; }
+.prose h2 { font-size: 1.25rem; }
+.prose h3 { font-size: 1.1rem; }
+.prose p { margin-bottom: 0.75em; line-height: 1.7; color: #d4d4d4; }
+.prose ul, .prose ol { margin-bottom: 0.75em; padding-left: 1.5em; color: #d4d4d4; }
+.prose li { margin-bottom: 0.25em; line-height: 1.6; }
+.prose strong { color: var(--foreground); }
+.prose code { background: var(--card-border); padding: 0.15em 0.4em; border-radius: 4px; font-size: 0.9em; }
+.prose blockquote { border-left: 3px solid var(--accent); padding-left: 1em; margin: 1em 0; color: var(--muted); }
