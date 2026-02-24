@@ -74,7 +74,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-12 max-w-4xl mx-auto">
+    <main className="min-h-screen px-4 sm:px-6 py-8 sm:py-12 max-w-4xl mx-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -85,7 +85,7 @@ export default function Home() {
           <div className="p-3 rounded-2xl bg-[var(--accent)]/10 border border-[var(--accent)]/20">
             <FlaskConical className="w-8 h-8 text-[var(--accent-light)]" />
           </div>
-          <h1 className="text-4xl font-bold tracking-tight">Research Analyzer</h1>
+          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight">Research Analyzer</h1>
         </div>
         <p className="text-[var(--muted)] text-lg max-w-2xl mx-auto">
           Paste any research paper, abstract, or scientific text. Get an instant AI-powered breakdown
@@ -109,21 +109,21 @@ export default function Home() {
                 placeholder="Paste your research paper, abstract, or scientific text here..."
                 className="w-full h-64 p-5 bg-[var(--card)] border border-[var(--card-border)] rounded-2xl resize-none focus:outline-none focus:border-[var(--accent)]/50 transition-colors text-[15px] leading-relaxed placeholder:text-[var(--muted)]/50"
               />
-              <div className="flex items-center justify-between mt-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mt-4 gap-3">
                 <button
                   onClick={() => setInput(EXAMPLE_ABSTRACT)}
                   className="text-sm text-[var(--muted)] hover:text-[var(--accent-light)] transition-colors"
                 >
                   Try an example →
                 </button>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 justify-end">
                   <span className="text-xs text-[var(--muted)]">
                     {input.length.toLocaleString()} chars
                   </span>
                   <button
                     onClick={analyze}
                     disabled={!input.trim() || loading}
-                    className="flex items-center gap-2 px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-light)] disabled:opacity-40 disabled:cursor-not-allowed rounded-xl font-medium transition-colors"
+                    className="flex items-center justify-center gap-2 px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-light)] disabled:opacity-40 disabled:cursor-not-allowed rounded-xl font-medium transition-colors"
                   >
                     {loading ? (
                       <>
