@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
-
-const client = new Anthropic();
 
 const SYSTEM_PROMPT = `You are a research paper analyst. Given scientific text (a full paper, abstract, or excerpt), produce a structured analysis in valid JSON format.
 
@@ -35,19 +32,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Text too long (max 100,000 characters)" }, { status: 400 });
     }
 
-    const message = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 4096,
-      messages: [
-        {
-          role: "user",
-          content: `Analyze this research text and return the structured JSON analysis:\n\n${text}`,
-        },
-      ],
-      system: SYSTEM_PROMPT,
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.ANTHROPIC_API_KEY!,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT,
+        messages: [
+          {
+            role: "user",
+            content: `Analyze this research text and return the structured JSON analysis:\n\n${text}`,
+          },
+        ],
+      }),
     });
 
-    const content = message.content[0];
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Anthropic API error: ${error}`);
+    }
+
+    const data = await response.json();
+    const content = data.content[0];
     if (content.type !== "text") {
       return NextResponse.json({ error: "Unexpected response format" }, { status: 500 });
     }
